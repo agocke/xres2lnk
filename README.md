@@ -5,6 +5,11 @@ xres2lnk is a simple Windows console app for parsing an XResources file and writ
 the color codes into a shortcut to a Windows console program (e.g., cmd.exe, bash.exe).
 You can find the latest release [here](https://github.com/agocke/xres2lnk/releases/download/v1.0.0/xres2lnk.zip).
 
+
+If you don't already have an XResources file with colors you like, you can find tons of
+themes on https://chriskempson.github.io/base16/ and if you don't like any of those, you
+can make your own and export it as XResources using http://terminal.sexy/.
+
 The usage for xres2lnk is as follows:
 
 ```
@@ -15,7 +20,6 @@ You can experiment with different console colors and export them to an LNK file.
 To try the new colors, just click on the link to open a new console window. When you are happy with the color scheme, copy it to your start bar or toolbar and windows opened with
 that link will always have that color scheme.
 
-When you have a color scheme you are happy with, 
 
 XResources is a common way to specify terminal colors for various terminal programs on
 Linux, but there's no corresponding configuration file for the Windows console. There
