@@ -8,6 +8,7 @@
 #include "color_info.h"
 
 ColorInfo parse_xresources_file(std::string);
+void set_console_colors(NT_CONSOLE_PROPS&, ColorInfo&);
 
 int wmain(int argc, wchar_t* argv[])
 {
@@ -95,10 +96,7 @@ int wmain(int argc, wchar_t* argv[])
         props->wFillAttribute = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY;
     }
 
-    for (int i = 0; i < 16; i++)
-    {
-        props->ColorTable[i] = colorInfo.NumberedColors[i].to_color_ref();
-    }
+    set_console_colors(*props, colorInfo);
 
     hr = CComQIPtr<IShellLinkDataList>(sps1)->AddDataBlock(props);
 
@@ -119,4 +117,24 @@ int wmain(int argc, wchar_t* argv[])
 
     CoUninitialize();
     return 0;
+}
+
+void set_console_colors(NT_CONSOLE_PROPS& props, ColorInfo& colorInfo)
+{
+    props.ColorTable[0] = colorInfo.Black.to_color_ref();
+    props.ColorTable[1] = colorInfo.Blue.to_color_ref();
+    props.ColorTable[2] = colorInfo.Green.to_color_ref();
+    props.ColorTable[3] = colorInfo.Cyan.to_color_ref();
+    props.ColorTable[4] = colorInfo.Red.to_color_ref();
+    props.ColorTable[5] = colorInfo.Magenta.to_color_ref();
+    props.ColorTable[6] = colorInfo.Yellow.to_color_ref();
+    props.ColorTable[7] = colorInfo.White.to_color_ref();
+    props.ColorTable[8] = colorInfo.BrightBlack.to_color_ref();
+    props.ColorTable[9] = colorInfo.BrightBlue.to_color_ref();
+    props.ColorTable[10] = colorInfo.BrightGreen.to_color_ref();
+    props.ColorTable[11] = colorInfo.BrightCyan.to_color_ref();
+    props.ColorTable[12] = colorInfo.BrightRed.to_color_ref();
+    props.ColorTable[13] = colorInfo.BrightMagenta.to_color_ref();
+    props.ColorTable[14] = colorInfo.BrightYellow.to_color_ref();
+    props.ColorTable[15] = colorInfo.BrightWhite.to_color_ref();
 }

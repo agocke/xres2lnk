@@ -59,13 +59,59 @@ ColorInfo parse_xresources_file(std::string contents)
             const size_t colorlen = sizeof("color") - 1;
             auto colorNumber = stoi(colorId.substr(colorlen, colorId.length() - colorlen));
 
-            if (colorNumber < 0 || colorNumber > 15)
+            switch (colorNumber)
             {
+            case 0:
+                colorInfo.Black = color;
+                break;
+            case 1:
+                colorInfo.Red = color;
+                break;
+            case 2:
+                colorInfo.Green = color;
+                break;
+            case 3:
+                colorInfo.Yellow = color;
+                break;
+            case 4:
+                colorInfo.Blue = color;
+                break;
+            case 5:
+                colorInfo.Magenta = color;
+                break;
+            case 6:
+                colorInfo.Cyan = color;
+                break;
+            case 7:
+                colorInfo.White = color;
+                break;
+            case 8:
+                colorInfo.BrightBlack = color;
+                break;
+            case 9:
+                colorInfo.BrightRed = color;
+                break;
+            case 10:
+                colorInfo.BrightGreen = color;
+                break;
+            case 11:
+                colorInfo.BrightYellow = color;
+                break;
+            case 12:
+                colorInfo.BrightBlue = color;
+                break;
+            case 13:
+                colorInfo.BrightMagenta = color;
+                break;
+            case 14:
+                colorInfo.BrightCyan = color;
+                break;
+            case 15:
+                colorInfo.BrightWhite = color;
+                break;
+            default:
                 std::cerr << "Color id specified in '" << line << "' is invalid. Skipping..." << std::endl;
-            }
-            else
-            {
-                colorInfo.NumberedColors[colorNumber] = color;
+                break;
             }
         }
     }

@@ -17,7 +17,22 @@ public:
 
 struct ColorInfo
 {
-    Color NumberedColors[16];
     Color ForegroundColor = Color();
     Color BackgroundColor = Color();
+    Color Black = Color();
+    Color Red = Color();
+    Color Green = Color();
+    Color Yellow = Color();
+    Color Blue = Color();
+    Color Magenta = Color();
+    Color Cyan = Color();
+    Color White = Color();
+    Color BrightBlack = Color();
+    Color BrightRed = Color();
+    Color BrightGreen = Color();
+    Color BrightYellow = Color();
+    Color BrightBlue = Color();
+    Color BrightMagenta = Color();
+    Color BrightCyan = Color();
+    Color BrightWhite = Color();
 };
