@@ -1,9 +1,11 @@
 
 # xres2lnk
 
+### [Download](https://github.com/agocke/xres2lnk/releases/download/1.1.0/xres2lnk.zip)
+
+
 xres2lnk is a simple Windows console app for parsing an XResources file and writing
 the color codes into a shortcut to a Windows console program (e.g., cmd.exe, bash.exe).
-You can find the latest release [here](https://github.com/agocke/xres2lnk/releases/download/v1.0.0/xres2lnk.zip).
 
 
 If you don't already have an XResources file with colors you like, you can find tons of
