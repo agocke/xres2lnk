@@ -4,6 +4,11 @@
 #include <sstream>
 #include <assert.h>
 #include <memory>
+#include <map>
+#include <vector>
+#include <algorithm>
+#include <iterator>
+#include <utility>
 #include "color_info.h"
 
 static Color colorspec_to_color(std::string& colorSpec)
@@ -16,7 +21,54 @@ static Color colorspec_to_color(std::string& colorSpec)
     return color;
 }
 
-ColorInfo parse_xresources_file(std::string contents)
+std::string preprocess_xresources_file(const std::string &contents)
+{
+	std::istringstream iss(contents);
+
+	// map with
+	//   key is string containing identifier
+	//   value is pair of compiled regex for matching the identifier and the replacement string
+	// using a map instead of a vector of pairs allows for detection of collision among defines
+	std::map<std::string, std::pair<std::regex, std::string>> replacements;
+	const std::regex define_re(
+		R"(^#define\s+([_a-zA-Z][_0-9a-zA-Z]*)\s+(.*))"
+	);
+	std::ostringstream oss;
+	for (std::string line; std::getline(iss, line);)
+	{
+		std::smatch define_match;
+		std::regex_match(line, define_match, define_re);
+		if (define_match.size() == 3)
+		{
+			std::string identifier = define_match[1].str();
+			if (replacements.find(identifier) == replacements.end())
+			{
+				replacements[identifier] = std::make_pair(std::regex(identifier), define_match[2].str());
+			}
+			else
+			{
+				std::cerr << "warning: multiple defines for " << identifier << std::endl;
+			}
+			oss << line << std::endl;
+		}
+		else
+		{
+			if (!line.empty())
+			{
+				// lazy replacement algorithm
+				for (auto &p : replacements)
+				{
+					line = std::regex_replace(line, p.second.first, p.second.second);
+				}
+			}
+			oss << line << std::endl;
+		}
+	}
+
+	return oss.str();
+}
+
+ColorInfo parse_xresources_file(const std::string &contents)
 {
     std::stringstream xres(contents, std::stringstream::ios_base::in);
     ColorInfo colorInfo = ColorInfo();
