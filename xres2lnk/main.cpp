@@ -46,7 +46,7 @@ int wmain(int argc, wchar_t* argv[])
     std::ifstream in(argv[1], std::ios::in);
     if (!in)
     {
-        std::cerr << "Could not read xresources file '" << argv[1] << "'" << std::endl;
+        std::wcerr << L"Could not read xresources file '" << argv[1] << L"'" << std::endl;
         return errno;
     }
 
