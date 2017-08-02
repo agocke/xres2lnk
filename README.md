@@ -18,6 +18,8 @@ The usage for xres2lnk is as follows:
 xres2lnk.exe <Xresources file> <lnk file>
 ```
 
+(Note: The LNK file must already exist on disk)
+
 You can experiment with different console colors and export them to an LNK file.
 To try the new colors, just click on the link to open a new console window. When you are happy with the color scheme, copy it to your start bar or toolbar and windows opened with
 that link will always have that color scheme.
