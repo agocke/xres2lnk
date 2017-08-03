@@ -42,20 +42,21 @@ int wmain(int argc, wchar_t* argv[])
         return GetLastError();
     }
 
-    // Read xresources file into memory
-    std::ifstream in(argv[1], std::ios::in);
-    if (!in)
-    {
-        std::cerr << "Could not read xresources file '" << argv[1] << "'" << std::endl;
-        return errno;
-    }
+	std::string contents;
+	{
+		// Read xresources file into memory
+		std::ifstream in(argv[1], std::ios::in);
+		if (!in)
+		{
+			std::wcerr << L"Could not read xresources file '" << argv[1] << L"'" << std::endl;
+			return errno;
+		}
 
-    std::string contents;
-    in.seekg(0, std::ios::end);
-    contents.resize(in.tellg());
-    in.seekg(0, std::ios::beg);
-    in.read(&contents[0], contents.size());
-    in.close();
+		std::ostringstream oss;
+		oss << in.rdbuf();
+		in.close();
+		contents = oss.str();
+	}
 
     // Parse xresources file for color info
     auto colorInfo = parse_xresources_file(contents);
